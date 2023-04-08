@@ -13,6 +13,6 @@
   .header {
     width: 880px;
     min-height: 74px;
-    margin: 45px auto;
+    margin: 45px auto 0 auto;
   }
 }
