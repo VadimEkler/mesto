@@ -1,0 +1,12 @@
+.gallery__like-button {
+  all: unset;
+
+  padding: 0 23px 0 0;
+
+  background: url(../../../Images/icons/gallery__like-button.svg);
+  background-size: 22px 19px;
+  background-repeat: no-repeat;
+
+  height: 22px;
+  width: 19px;
+}

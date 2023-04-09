@@ -1,0 +1,16 @@
+.gallery__item {
+  background-color: #fff;
+
+  border-radius: 10px;
+
+  display: flex;
+  flex-wrap: wrap;
+
+  justify-content: space-between;
+  align-items: center;
+
+  box-sizing: border-box;
+
+  object-fit: contain;
+  line-height: 0;
+}
