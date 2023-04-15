@@ -10,11 +10,15 @@
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
-  min-height: 246px;
+  min-height: 222px;
+  max-height: calc(322px - 2*25px);
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 680px) {
   .popup__content {
     padding: 34px 36px 37px;
+    min-height: 252px;
+    max-height: calc(430px - 34px - 37px);
   }
 }
+

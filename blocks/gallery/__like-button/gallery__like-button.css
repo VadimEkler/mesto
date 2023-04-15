@@ -7,6 +7,17 @@
   background-size: 22px 19px;
   background-repeat: no-repeat;
 
+  cursor: pointer;
+
   height: 22px;
   width: 19px;
+  transition: opacity ease-in-out 0.3s;
+}
+
+.gallery__like-button:hover {
+  opacity: 0.6;
+}
+
+.gallery__like-button:active {
+  opacity: 1;
 }

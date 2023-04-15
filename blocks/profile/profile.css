@@ -2,7 +2,14 @@
   margin: 42px 0 0 0;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 680px) {
+  .profile {
+    width: 90%;
+    margin: 40px auto 0 auto;
+  }
+}
+
+@media screen and (min-width: 1082px) {
   .profile {
     width: 880px;
     margin: 40px auto 0 auto;

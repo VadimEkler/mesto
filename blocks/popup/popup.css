@@ -1,6 +1,5 @@
 .popup {
-
-  display: flex;
+  display: none;
 
   position: fixed;
   top: 0;
@@ -17,7 +16,19 @@
   padding: 123px 19px;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 680px) {
+  .popup {
+    padding: 175px 180px;
+  }
+}
+
+@media screen and (min-width: 910px) {
+  .popup {
+    padding: 175px 300px;
+  }
+}
+
+@media screen and (min-width: 1082px) {
   .popup {
     padding: 195px 425px;
   }

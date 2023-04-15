@@ -4,8 +4,11 @@
   align-items: center;
 }
 
-@media screen and (min-width: 1280px) {
+
+@media screen and (min-width: 680px) {
   .profile__card {
     flex-direction: row;
   }
 }
+
+

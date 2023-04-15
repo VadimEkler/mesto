@@ -9,7 +9,15 @@
   box-sizing: border-box;
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: 680px) {
+  .header {
+    width: 90%;
+    min-height: 74px;
+    margin: 45px auto 0 auto;
+  }
+}
+
+@media screen and (min-width: 1082px) {
   .header {
     width: 880px;
     min-height: 74px;

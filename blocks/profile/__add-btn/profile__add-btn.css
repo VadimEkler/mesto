@@ -15,18 +15,32 @@
   box-sizing: border-box;
 
   cursor: pointer;
+
+  transition: opacity ease-in-out 0.3s;
 }
 
 .profile__add-btn:hover {
   opacity: 0.6;
 }
 
-@media screen and (min-width: 1280px) {
+.profile__add-btn:active {
+  opacity: 1;
+}
+
+@media screen and (min-width: 680px) {
   .profile__add-btn {
-    width: 150px;
+    width: 200px;
 
     background-size: 22px 22px;
 
     margin: 0 0 0 auto;
+  }
+}
+
+@media screen and (min-width: 1082px) {
+  .profile__add-btn {
+    width: 150px;
+
+    background-size: 22px 22px;
   }
 }

@@ -9,6 +9,7 @@
   max-width: 70%;
 
   text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
 
   padding: 25px 0 25px 21px;
