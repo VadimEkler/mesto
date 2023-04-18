@@ -5,20 +5,26 @@
 
   padding: 25px 22px;
 
-  position: relative;
+  box-sizing: border-box;
+  position: fixed;
 
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
-  min-height: 222px;
-  max-height: calc(322px - 2*25px);
+
+  max-width: 282px;
 }
 
 @media screen and (min-width: 680px) {
   .popup__content {
-    padding: 34px 36px 37px;
-    min-height: 252px;
-    max-height: calc(430px - 34px - 37px);
+    max-width: 350px;
+    padding: 35px 28px;
   }
 }
 
+@media screen and (min-width: 1082px) {
+  .popup__content {
+    max-width: 430px;
+    padding: 34px 36px;
+  }
+}

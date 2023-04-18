@@ -1,4 +1,5 @@
 .footer__copyright {
+  all: unset;
   font-size: 14px;
   line-height: 17px;
   font-weight: 400;
