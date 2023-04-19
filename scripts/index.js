@@ -29,6 +29,7 @@ function editUserInfo() {
 function handleFormSubmit (evt) {
   evt.preventDefault();
   editUserInfo();
+  closePopup();
 }
 
 editForm.addEventListener('submit', handleFormSubmit);
