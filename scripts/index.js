@@ -34,3 +34,51 @@ function handleFormSubmit (evt) {
 
 editForm.addEventListener('submit', handleFormSubmit);
 
+const galleryItems = [
+  {
+    name: 'Архыз',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
+  },
+  {
+    name: 'Челябинская область',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
+  },
+  {
+    name: 'Иваново',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
+  },
+  {
+    name: 'Камчатка',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
+  },
+  {
+    name: 'Холмогорский район',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
+  },
+  {
+    name: 'Байкал',
+    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
+  }
+];
+
+const galleryItemTemplate = document.getElementById('gallery-item');
+const galleryContainer = document.querySelector('.gallery__list');
+
+const createGalleryItem = (galleryItemData) => {
+  const galleryItem = galleryItemTemplate.content.querySelector('.gallery__list-item').cloneNode(true);
+  const galleryItemTitle = galleryItem.querySelector('.gallery__title');
+  const galleryItemImage = galleryItem.querySelector('.gallery__image');
+
+  galleryItemTitle.textContent = galleryItemData.name;
+  galleryItemImage.src = galleryItemData.link;
+  galleryItemImage.alt = galleryItemData.name;
+
+  return galleryItem;
+};
+
+galleryItems.forEach((item) => {
+  const element = createGalleryItem(item);
+
+  galleryContainer.appendChild(element);
+});
+
