@@ -81,10 +81,17 @@ const createGalleryItem = (galleryItemData) => {
   const galleryItem = galleryItemTemplate.content.querySelector('.gallery__list-item').cloneNode(true);
   const galleryItemTitle = galleryItem.querySelector('.gallery__title');
   const galleryItemImage = galleryItem.querySelector('.gallery__image');
+  const galleryItemLikeBtn = galleryItem.querySelector('.gallery__like-button');
 
   galleryItemTitle.textContent = galleryItemData.name;
   galleryItemImage.src = galleryItemData.link;
   galleryItemImage.alt = galleryItemData.name;
+
+  const handleLike = () => {
+    galleryItemLikeBtn.classList.toggle('gallery__like-button_active');
+  };
+
+  galleryItemLikeBtn.addEventListener('click', handleLike)
 
   return galleryItem;
 };
