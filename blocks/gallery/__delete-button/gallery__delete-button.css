@@ -1,0 +1,14 @@
+.gallery__delete-button {
+  all: unset;
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  height: 19px;
+  width: 18px;
+
+  background-image: url(../../../Images/icons/gallery__delete-button.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+}
