@@ -11,10 +11,15 @@ const popupInputNickname = popupUserInfo.querySelector('.popup__form-field_input
 const popupInputDescription = popupUserInfo.querySelector('.popup__form-field_input_description');
 const userInfoEditForm = popupUserInfo.querySelector('.popup__edit-form');
 
-// Элементы попапа с информацией о пользователе
+// Элементы попапа с информацией о новой карточке
 const popupAddImage = document.querySelector('.popup_add-image');
 const popupInputTitle = popupAddImage.querySelector('.popup__form-field_input_title');
 const popupInputLink = popupAddImage.querySelector('.popup__form-field_input_link');
+
+// Элементы попапа для картинки
+const popupImage = document.querySelector('.image-popup');
+const popupImg = popupImage.querySelector('.popup__image');
+const popupImageCaption = popupImage.querySelector('.popup__caption');
 
 // Кнопки
 const profileEditButton = document.querySelector('.profile__edit-btn');
@@ -76,6 +81,13 @@ const createGalleryItem = (galleryItemData) => {
   galleryItemDeleteButton.addEventListener('click', handleDelete);
 
   galleryItemLikeButton.addEventListener('click', handleLike);
+
+  galleryItemImage.addEventListener('click', () => {
+    popupImageCaption.textContent = galleryItemData.name;
+    popupImg.src = galleryItemData.link;
+    popupImageCaption.alt = galleryItemData.name;
+    openPopup(popupImage);
+  });
 
   return galleryItem;
 };
