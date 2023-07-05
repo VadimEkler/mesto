@@ -2,7 +2,6 @@
 const profileUserNickname = document.querySelector('.profile__user-nickname');
 const profileUserDescription = document.querySelector('.profile__user-description');
 
-// Все попапы
 const popup = document.querySelector('.popup');
 
 // Элементы попапа с информацией о пользователе
@@ -25,34 +24,6 @@ const popupImageCaption = popupImage.querySelector('.popup__caption');
 const profileEditButton = document.querySelector('.profile__edit-btn');
 const profileAddButton = document.querySelector('.profile__add-btn');
 const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
-
-// Первичный массив элементов
-const galleryItems = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
 
 // Элемент-контейнер для карточек и элемент-шаблон, с помощью которого карточки добавляем
 const galleryContainer = document.querySelector('.gallery__list');
@@ -78,16 +49,18 @@ const createGalleryItem = (galleryItemData) => {
     galleryItemLikeButton.classList.toggle('gallery__like-button_active');
   };
 
-  galleryItemDeleteButton.addEventListener('click', handleDelete);
-
-  galleryItemLikeButton.addEventListener('click', handleLike);
-
-  galleryItemImage.addEventListener('click', () => {
+  function openImagePopup () {
     popupImageCaption.textContent = galleryItemData.name;
     popupImg.src = galleryItemData.link;
     popupImageCaption.alt = galleryItemData.name;
     openPopup(popupImage);
-  });
+  };
+
+  galleryItemDeleteButton.addEventListener('click', handleDelete);
+
+  galleryItemLikeButton.addEventListener('click', handleLike);
+
+  galleryItemImage.addEventListener('click', openImagePopup);
 
   return galleryItem;
 };
@@ -117,14 +90,14 @@ function editUserInfo () {
 
 
 // Отмена отправки формы на сервер, обновление данных пользователя и закрытие попапа
-function handleFormSubmit (evt) {
+function handleUserInfoFormSubmit (evt) {
   evt.preventDefault();
   editUserInfo();
-  closePopup(popup);
+  closePopup(popupUserInfo);
 };
 
 // Сохранение информации о пользователе при сабмите формы
-userInfoEditForm.addEventListener('submit', handleFormSubmit);
+userInfoEditForm.addEventListener('submit', handleUserInfoFormSubmit);
 
 // Открытие попапа с инфой о пользователе при клике по иконке + автозаполенение
 profileEditButton.addEventListener('click', () => {

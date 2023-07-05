@@ -44,8 +44,8 @@
     <h2 class="popup__title">Редактировать профиль</h2>
 
     <form class="popup__edit-form" name="user-info-edit-form">
-      <input class="popup__form-field popup__form-field_input_nickname" type="text" name="edit-nickname-field" placeholder="Ваше имя">
-      <input class="popup__form-field popup__form-field_input_description" type="text" name="edit-description-field" placeholder="Расскажите о себе">
+      <input class="popup__form-field popup__form-field_input_nickname" type="text" name="edit-nickname-field" placeholder="Ваше имя" required>
+      <input class="popup__form-field popup__form-field_input_description" type="text" name="edit-description-field" placeholder="Расскажите о себе" required>
       <input class="popup__save-btn" type="submit" value="Сохранить">
     </form>
 
@@ -59,8 +59,8 @@
     <h2 class="popup__title">Новое место</h2>
 
     <form class="popup__edit-form" name="add-image-edit-form">
-      <input class="popup__form-field popup__form-field_input_title" type="text" placeholder="Новое место">
-      <input class="popup__form-field popup__form-field_input_link" type="url" placeholder="Ссылка на картинку">
+      <input class="popup__form-field popup__form-field_input_title" type="text" placeholder="Новое место" required>
+      <input class="popup__form-field popup__form-field_input_link" type="url" placeholder="Ссылка на картинку" required>
       <input class="popup__save-btn popup__save-btn_new-card-data" type="submit" value="Создать">
     </form>
 
@@ -91,6 +91,7 @@
   </li>
 </template>
 
+<script src="scripts/cards.js"></script>
 <script src="scripts/index.js"></script>
 
 </body>
