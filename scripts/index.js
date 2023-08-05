@@ -2,7 +2,9 @@
 const profileUserNickname = document.querySelector('.profile__user-nickname');
 const profileUserDescription = document.querySelector('.profile__user-description');
 
+const popupsList = document.querySelectorAll('.popup');
 const popup = document.querySelector('.popup');
+const popupContent = document.querySelector('.popup__content');
 
 // Элементы попапа с информацией о пользователе
 const popupUserInfo = document.querySelector('.popup_user-info');
@@ -75,12 +77,16 @@ galleryItems.forEach((item) => {
 // Функция открытия попапов
 function openPopup (popup) {
   popup.classList.add('popup_opened');
+  document.addEventListener('keydown', closePopupEsc);
+  // document.addEventListener('click', closePopupOverlay);
 }
 
 // Функция закрытия попапов
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
+  document.removeEventListener('keydown', closePopupEsc);
 }
+
 
 // Функция изменения имени и описания пользователя
 function editUserInfo () {
@@ -118,8 +124,33 @@ popupAddImage.addEventListener('submit', (evt) => {
   evt.target.reset();
 });
 
+
 // Закрытие попапов при клике по иконке
 popupCloseButtons.forEach ((element) => {
   const closestPopup = element.closest('.popup');
   element.addEventListener('click', () => closePopup(closestPopup));
 });
+
+// Вешаем слушатели на все попапы для закрытия по оверлей
+popupsList.forEach ((element) => {
+  element.addEventListener('click', (evt) => {
+    closePopupOverlay(evt);
+  })
+})
+
+// Функция закрытия попапа при клике на оверлей
+function closePopupOverlay(evt) {
+  if (evt.target === evt.currentTarget){
+    closePopup(evt.target);
+  }
+}
+
+// Функция закрытия попапа при нажатии esc
+function closePopupEsc(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
+
