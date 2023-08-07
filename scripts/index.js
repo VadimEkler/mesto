@@ -26,6 +26,7 @@ const popupImageCaption = popupImage.querySelector('.popup__caption');
 const profileEditButton = document.querySelector('.profile__edit-btn');
 const profileAddButton = document.querySelector('.profile__add-btn');
 const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
+const popupSaveBtnNewCardData = document.querySelector('.popup__save-btn_new-card-data')
 
 // Элемент-контейнер для карточек и элемент-шаблон, с помощью которого карточки добавляем
 const galleryContainer = document.querySelector('.gallery__list');
@@ -52,6 +53,7 @@ const createGalleryItem = (galleryItemData) => {
   };
 
   function openImagePopup () {
+    toggleButtonState(buttonElement, isActive, config);
     popupImageCaption.textContent = galleryItemData.name;
     popupImg.src = galleryItemData.link;
     popupImageCaption.alt = galleryItemData.name;
@@ -78,7 +80,6 @@ galleryItems.forEach((item) => {
 function openPopup (popup) {
   popup.classList.add('popup_opened');
   document.addEventListener('keydown', closePopupEsc);
-  // document.addEventListener('click', closePopupOverlay);
 }
 
 // Функция закрытия попапов
@@ -107,13 +108,17 @@ userInfoEditForm.addEventListener('submit', handleUserInfoFormSubmit);
 
 // Открытие попапа с инфой о пользователе при клике по иконке + автозаполенение
 profileEditButton.addEventListener('click', () => {
+  // resetErrorMessage(userInfoEditForm, config);
   popupInputNickname.value = profileUserNickname.textContent;
   popupInputDescription.value = profileUserDescription.textContent;
-  openPopup(popupUserInfo)
+  openPopup(popupUserInfo);
 });
 
 // Открытие попапа для добавления карточки при клике по иконке
-profileAddButton.addEventListener('click', () => openPopup(popupAddImage));
+profileAddButton.addEventListener('click', () => {
+  disableButton(popupSaveBtnNewCardData, config)
+  openPopup(popupAddImage);
+});
 
 // Добавление новой карточки при сабмите формы
 popupAddImage.addEventListener('submit', (evt) => {

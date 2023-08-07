@@ -48,12 +48,13 @@ function setEventListener(formElement, config) {
   const inputList = formElement.querySelectorAll(config.inputSelector);
   const submitButtonElement = formElement.querySelector(config.submitButtonSelector);
 
+
   toggleButtonState(submitButtonElement, formElement.checkValidity(), config);
 
   [...inputList].forEach(function(inputElement) {
     inputElement.addEventListener('input', function() {
-      toggleButtonState(submitButtonElement, formElement.checkValidity(), config);
       checkInputValidity(inputElement, formElement, config);
+      toggleButtonState(submitButtonElement, formElement.checkValidity(), config);
     });
   });
 
