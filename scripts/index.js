@@ -53,7 +53,6 @@ const createGalleryItem = (galleryItemData) => {
   };
 
   function openImagePopup () {
-    toggleButtonState(buttonElement, isActive, config);
     popupImageCaption.textContent = galleryItemData.name;
     popupImg.src = galleryItemData.link;
     popupImageCaption.alt = galleryItemData.name;
