@@ -1,10 +1,10 @@
 export default class Card {
-  constructor(cardData, selectorTemplate, openImagePopup) {
+  constructor(cardData, selectorTemplate, handleImageClick) {
     this._cardData = cardData;
     this._name = cardData.name;
     this._link = cardData.link;
     this._selectorTemplate = selectorTemplate;
-    this._openImagePopup = openImagePopup;
+    this._handleImageClick = handleImageClick;
   }
 
   _getTemplate() {
@@ -12,36 +12,37 @@ export default class Card {
   }
 
   _handleLike = () =>  {
-    this._templateElementLikeButton.classList.toggle('gallery__like-button_active');
+    this.__cardLikeButton.classList.toggle('gallery__like-button_active');
   }
 
   _handleDelete = () => {
-    this._templateElement.remove();
+    this._card.remove();
+    this._card = null;
   }
 
-  _handleOpenImagePopup = () => {
-    this._openImagePopup(this._cardData);
+  _handleCardClick = () => {
+    this._handleImageClick(this._cardData);
   }
 
   _addEventListeners() {
-    this._templateElementLikeButton.addEventListener('click', this._handleLike);
-    this._templateElementDeleteButton.addEventListener('click', this._handleDelete);
-    this._templateElementImage.addEventListener('click', this._handleOpenImagePopup)
+    this._cardLikeButton.addEventListener('click', this._handleLike);
+    this._cardDeleteButton.addEventListener('click', this._handleDelete);
+    this._cardImage.addEventListener('click', this._handleCardClick)
   }
 
   createCard() {
-    this._templateElement = this._getTemplate();
-    this._templateElementTitle = this._templateElement.querySelector('.gallery__title');
-    this._templateElementImage = this._templateElement.querySelector('.gallery__image');
-    this._templateElementLikeButton = this._templateElement.querySelector('.gallery__like-button');
-    this._templateElementDeleteButton = this._templateElement.querySelector('.gallery__delete-button');
+    this._card = this._getTemplate();
+    this._cardTitle = this._card.querySelector('.gallery__title');
+    this._cardImage = this._card.querySelector('.gallery__image');
+    this._cardLikeButton = this._card.querySelector('.gallery__like-button');
+    this._cardDeleteButton = this._card.querySelector('.gallery__delete-button');
 
-    this._templateElementImage.src = this._link;
-    this._templateElementImage.alt = this._name;
-    this._templateElementTitle.textContent = this._name;
+    this._cardImage.src = this._link;
+    this._cardImage.alt = this._name;
+    this._cardTitle.textContent = this._name;
 
     this._addEventListeners();
 
-    return this._templateElement;
+    return this._card;
   }
 }

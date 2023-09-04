@@ -1,6 +1,6 @@
 import galleryItems from "./cards.js";
 import FormValidator from "./FormValidator.js"
-import Card from "./Card.js";
+import Card from "./Card.js"
 
 // Данные, необходимые для оперирования в следующих блоках
 const profileUserNickname = document.querySelector('.profile__user-nickname');
@@ -30,6 +30,26 @@ const profileEditButton = document.querySelector('.profile__edit-btn');
 const profileAddButton = document.querySelector('.profile__add-btn');
 const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
 
+// Элемент-контейнер для карточек и элемент-шаблон, с помощью которого карточки добавляем
+const galleryContainer = document.querySelector('.gallery__list');
+const cardTemplateSelector = '#gallery-item';
+
+const validationConfig = {
+  inputSelector: '.popup__form-field',
+  submitButtonSelector: '.popup__save-btn',
+  inactiveButtonClass: 'popup__save-btn_invalid',
+  inputErrorClass: 'popup__form-field_invalid',
+}
+
+const formUserInfoValidated = new FormValidator(validationConfig, userInfoEditForm);
+const formAddImageValidated = new FormValidator(validationConfig, addImageEditForm);
+
+const createNewCard = (item) => {
+  const card = new Card(item, cardTemplateSelector, openImagePopup);
+  const cardTemplate = card.createCard();
+  return cardTemplate;
+}
+
 function openImagePopup(galleryItemData) {
   popupImageCaption.textContent = galleryItemData.name;
   popupImg.src = galleryItemData.link;
@@ -37,43 +57,27 @@ function openImagePopup(galleryItemData) {
   openPopup(popupImage);
 };
 
-// Элемент-контейнер для карточек и элемент-шаблон, с помощью которого карточки добавляем
-const galleryContainer = document.querySelector('.gallery__list');
-const selectorTemplate = '#gallery-item';
-
-const createNewCard = (item) => {
-  const card = new Card(item, selectorTemplate, openImagePopup);
-  const cardTemplate = card.createCard();
-  return cardTemplate;
-}
-
 function addCard(galleryContainer, card) {
   galleryContainer.prepend(card);
 }
 
-galleryItems.forEach((item) => {
-  addCard(galleryContainer, createNewCard(item));
-});
-
 // Функция открытия попапов
 function openPopup (popup) {
   popup.classList.add('popup_opened');
-  document.addEventListener('keydown', closePopupEsc);
+  document.addEventListener('keydown', handleClosePopupEsc);
 }
 
 // Функция закрытия попапов
 function closePopup (popup) {
   popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', closePopupEsc);
+  document.removeEventListener('keydown', handleClosePopupEsc);
 }
-
 
 // Функция изменения имени и описания пользователя
 function editUserInfo () {
   profileUserNickname.textContent = popupInputNickname.value;
   profileUserDescription.textContent = popupInputDescription.value;
 };
-
 
 // Отмена отправки формы на сервер, обновление данных пользователя и закрытие попапа
 function handleUserInfoFormSubmit (evt) {
@@ -82,11 +86,31 @@ function handleUserInfoFormSubmit (evt) {
   closePopup(popupUserInfo);
 };
 
+// Функция закрытия попапа при клике на оверлей
+function handleClosePopupOverlay(evt) {
+  if (evt.target === evt.currentTarget){
+    closePopup(evt.target);
+  }
+}
+
+// Функция закрытия попапа при нажатии esc
+function handleClosePopupEsc(evt) {
+  if (evt.key === 'Escape') {
+    const popupOpened = document.querySelector('.popup_opened');
+    closePopup(popupOpened);
+  }
+}
+
+galleryItems.forEach((item) => {
+  addCard(galleryContainer, createNewCard(item));
+});
+
 // Сохранение информации о пользователе при сабмите формы
 userInfoEditForm.addEventListener('submit', handleUserInfoFormSubmit);
 
 // Открытие попапа с инфой о пользователе при клике по иконке + автозаполенение
 profileEditButton.addEventListener('click', () => {
+  formUserInfoValidated.resetForm();
   popupInputNickname.value = profileUserNickname.textContent;
   popupInputDescription.value = profileUserDescription.textContent;
   openPopup(popupUserInfo);
@@ -95,6 +119,8 @@ profileEditButton.addEventListener('click', () => {
 // Открытие попапа для добавления карточки при клике по иконке
 profileAddButton.addEventListener('click', () => {
   openPopup(popupAddImage);
+  addImageEditForm.reset();
+  formAddImageValidated.resetForm();
 });
 
 // Добавление новой карточки при сабмите формы
@@ -116,33 +142,9 @@ popupCloseButtons.forEach ((element) => {
 // Вешаем слушатели на все попапы для закрытия по оверлей
 popupsList.forEach ((element) => {
   element.addEventListener('click', (evt) => {
-    closePopupOverlay(evt);
+    handleClosePopupOverlay(evt);
   })
 })
 
-// Функция закрытия попапа при клике на оверлей
-function closePopupOverlay(evt) {
-  if (evt.target === evt.currentTarget){
-    closePopup(evt.target);
-  }
-}
-
-// Функция закрытия попапа при нажатии esc
-function closePopupEsc(evt) {
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
-
-const config = {
-  inputSelector: '.popup__form-field',
-  submitButtonSelector: '.popup__save-btn',
-  inactiveButtonClass: 'popup__save-btn_invalid',
-  inputErrorClass: 'popup__form-field_invalid',
-}
-
-const formUserInfoValidated = new FormValidator(config, userInfoEditForm);
-const formAddImageValidated = new FormValidator(config, addImageEditForm);
 formUserInfoValidated.enableValidation();
 formAddImageValidated.enableValidation();
