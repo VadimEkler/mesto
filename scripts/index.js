@@ -110,7 +110,7 @@ userInfoEditForm.addEventListener('submit', handleUserInfoFormSubmit);
 
 // Открытие попапа с инфой о пользователе при клике по иконке + автозаполенение
 profileEditButton.addEventListener('click', () => {
-  formUserInfoValidated.resetForm();
+  formUserInfoValidated.resetValidation();
   popupInputNickname.value = profileUserNickname.textContent;
   popupInputDescription.value = profileUserDescription.textContent;
   openPopup(popupUserInfo);
@@ -120,7 +120,7 @@ profileEditButton.addEventListener('click', () => {
 profileAddButton.addEventListener('click', () => {
   openPopup(popupAddImage);
   addImageEditForm.reset();
-  formAddImageValidated.resetForm();
+  formAddImageValidated.resetValidation();
 });
 
 // Добавление новой карточки при сабмите формы

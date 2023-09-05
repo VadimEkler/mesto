@@ -56,7 +56,7 @@ export default class FormValidator {
     this._toggleButtonState();
   }
 
-  resetForm() {
+  resetValidation() {
     this._inputList.forEach((input) => {
       const errorElement = this._form.querySelector(`#${input.name}-error`);
       if (!input.validity.valid) {

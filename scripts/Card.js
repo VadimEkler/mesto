@@ -12,7 +12,7 @@ export default class Card {
   }
 
   _handleLike = () =>  {
-    this.__cardLikeButton.classList.toggle('gallery__like-button_active');
+    this._cardLikeButton.classList.toggle('gallery__like-button_active');
   }
 
   _handleDelete = () => {
