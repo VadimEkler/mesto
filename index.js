@@ -2,6 +2,7 @@ import galleryItems from "./scripts/utils/constants.js";
 import FormValidator from "./scripts/components/FormValidator.js"
 import Card from "./scripts/components/Card.js"
 import PopupWithImage from "./scripts/components/PopupWithImage.js";
+import Section from "./scripts/components/Section.js";
 
 // Данные, необходимые для оперирования в следующих блоках
 const profileUserNickname = document.querySelector('.profile__user-nickname');
@@ -39,6 +40,8 @@ const popupProfileSelector = '.popup_user-info';
 
 const popupImageSelector = '.image-popup';
 
+const galleryItemsSelector = '.gallery__list';
+
 const validationConfig = {
   inputSelector: '.popup__form-field',
   submitButtonSelector: '.popup__save-btn',
@@ -49,19 +52,18 @@ const validationConfig = {
 const formUserInfoValidated = new FormValidator(validationConfig, userInfoEditForm);
 const formAddImageValidated = new FormValidator(validationConfig, addImageEditForm);
 
-const createNewCard = (item) => {
-  const card = new Card(item, cardTemplateSelector, imagePopup.open);
-  const cardTemplate = card.createCard();
-  return cardTemplate;
-}
-
 const imagePopup = new PopupWithImage(popupImageSelector);
 imagePopup.setEventListeners();
 
+const section = new Section({
+  items: galleryItems,
+  renderer: (item) => {
+    const card = new Card(item, cardTemplateSelector, imagePopup.open);
+    return card.createCard();
+  }
+}, galleryItemsSelector)
 
-function addCard(galleryContainer, card) {
-  galleryContainer.prepend(card);
-}
+section.addCardFromInitialArray();
 
 // Функция изменения имени и описания пользователя
 function editUserInfo () {
@@ -75,11 +77,6 @@ function handleUserInfoFormSubmit (evt) {
   editUserInfo();
   closePopup(popupUserInfo);
 };
-
-
-galleryItems.forEach((item) => {
-  addCard(galleryContainer, createNewCard(item));
-});
 
 // Сохранение информации о пользователе при сабмите формы
 userInfoEditForm.addEventListener('submit', handleUserInfoFormSubmit);
