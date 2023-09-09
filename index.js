@@ -1,6 +1,6 @@
-import galleryItems from "./cards.js";
-import FormValidator from "./FormValidator.js"
-import Card from "./Card.js"
+import galleryItems from "./scripts/utils/constants.js";
+import FormValidator from "./scripts/components/FormValidator.js"
+import Card from "./scripts/components/Card.js"
 
 // Данные, необходимые для оперирования в следующих блоках
 const profileUserNickname = document.querySelector('.profile__user-nickname');
