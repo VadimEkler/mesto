@@ -1,6 +1,7 @@
 import galleryItems from "./scripts/utils/constants.js";
 import FormValidator from "./scripts/components/FormValidator.js"
 import Card from "./scripts/components/Card.js"
+import Popup from "./scripts/components/Popup.js";
 
 // Данные, необходимые для оперирования в следующих блоках
 const profileUserNickname = document.querySelector('.profile__user-nickname');
@@ -34,6 +35,8 @@ const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
 const galleryContainer = document.querySelector('.gallery__list');
 const cardTemplateSelector = '#gallery-item';
 
+const popupProfileSelector = '.popup_user-info';
+
 const validationConfig = {
   inputSelector: '.popup__form-field',
   submitButtonSelector: '.popup__save-btn',
@@ -62,16 +65,16 @@ function addCard(galleryContainer, card) {
 }
 
 // Функция открытия попапов
-function openPopup (popup) {
-  popup.classList.add('popup_opened');
-  document.addEventListener('keydown', handleClosePopupEsc);
-}
+// function openPopup (popup) {
+//   popup.classList.add('popup_opened');
+//   document.addEventListener('keydown', handleClosePopupEsc);
+// }
 
-// Функция закрытия попапов
-function closePopup (popup) {
-  popup.classList.remove('popup_opened');
-  document.removeEventListener('keydown', handleClosePopupEsc);
-}
+// // Функция закрытия попапов
+// function closePopup (popup) {
+//   popup.classList.remove('popup_opened');
+//   document.removeEventListener('keydown', handleClosePopupEsc);
+// }
 
 // Функция изменения имени и описания пользователя
 function editUserInfo () {
@@ -87,19 +90,24 @@ function handleUserInfoFormSubmit (evt) {
 };
 
 // Функция закрытия попапа при клике на оверлей
-function handleClosePopupOverlay(evt) {
-  if (evt.target === evt.currentTarget){
-    closePopup(evt.target);
-  }
-}
+// function handleClosePopupOverlay(evt) {
+//   if (evt.target === evt.currentTarget){
+//     closePopup(evt.target);
+//   }
+// }
 
 // Функция закрытия попапа при нажатии esc
-function handleClosePopupEsc(evt) {
-  if (evt.key === 'Escape') {
-    const popupOpened = document.querySelector('.popup_opened');
-    closePopup(popupOpened);
-  }
-}
+// function handleClosePopupEsc(evt) {
+//   if (evt.key === 'Escape') {
+//     const popupOpened = document.querySelector('.popup_opened');
+//     closePopup(popupOpened);
+//   }
+// }
+
+const popupProfile = new Popup(popupProfileSelector);
+popupProfile.setEventListeners();
+// console.log(popupProfile);
+
 
 galleryItems.forEach((item) => {
   addCard(galleryContainer, createNewCard(item));
@@ -113,12 +121,13 @@ profileEditButton.addEventListener('click', () => {
   formUserInfoValidated.resetValidation();
   popupInputNickname.value = profileUserNickname.textContent;
   popupInputDescription.value = profileUserDescription.textContent;
-  openPopup(popupUserInfo);
+  popupProfile.openPopup();
+  // openPopup(popupUserInfo);
 });
 
 // Открытие попапа для добавления карточки при клике по иконке
 profileAddButton.addEventListener('click', () => {
-  openPopup(popupAddImage);
+  // openPopup(popupAddImage);
   addImageEditForm.reset();
   formAddImageValidated.resetValidation();
 });
@@ -128,23 +137,23 @@ popupAddImage.addEventListener('submit', (evt) => {
   evt.preventDefault();
   const galleryItemNew = {name: popupInputTitle.value, link: popupInputLink.value};
   addCard(galleryContainer, createNewCard(galleryItemNew));
-  closePopup(popupAddImage);
+  // closePopup(popupAddImage);
   evt.target.reset();
 });
 
 
 // Закрытие попапов при клике по иконке
-popupCloseButtons.forEach ((element) => {
-  const closestPopup = element.closest('.popup');
-  element.addEventListener('click', () => closePopup(closestPopup));
-});
+// popupCloseButtons.forEach ((element) => {
+//   const closestPopup = element.closest('.popup');
+//   element.addEventListener('click', () => closePopup(closestPopup));
+// });
 
 // Вешаем слушатели на все попапы для закрытия по оверлей
-popupsList.forEach ((element) => {
-  element.addEventListener('click', (evt) => {
-    handleClosePopupOverlay(evt);
-  })
-})
+// popupsList.forEach ((element) => {
+//   element.addEventListener('click', (evt) => {
+//     handleClosePopupOverlay(evt);
+//   })
+// })
 
 formUserInfoValidated.enableValidation();
 formAddImageValidated.enableValidation();
