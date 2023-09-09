@@ -1,7 +1,7 @@
 import galleryItems from "./scripts/utils/constants.js";
 import FormValidator from "./scripts/components/FormValidator.js"
 import Card from "./scripts/components/Card.js"
-import Popup from "./scripts/components/Popup.js";
+import PopupWithImage from "./scripts/components/PopupWithImage.js";
 
 // Данные, необходимые для оперирования в следующих блоках
 const profileUserNickname = document.querySelector('.profile__user-nickname');
@@ -37,6 +37,8 @@ const cardTemplateSelector = '#gallery-item';
 
 const popupProfileSelector = '.popup_user-info';
 
+const popupImageSelector = '.image-popup';
+
 const validationConfig = {
   inputSelector: '.popup__form-field',
   submitButtonSelector: '.popup__save-btn',
@@ -48,33 +50,18 @@ const formUserInfoValidated = new FormValidator(validationConfig, userInfoEditFo
 const formAddImageValidated = new FormValidator(validationConfig, addImageEditForm);
 
 const createNewCard = (item) => {
-  const card = new Card(item, cardTemplateSelector, openImagePopup);
+  const card = new Card(item, cardTemplateSelector, imagePopup.open);
   const cardTemplate = card.createCard();
   return cardTemplate;
 }
 
-function openImagePopup(galleryItemData) {
-  popupImageCaption.textContent = galleryItemData.name;
-  popupImg.src = galleryItemData.link;
-  popupImageCaption.alt = galleryItemData.name;
-  openPopup(popupImage);
-};
+const imagePopup = new PopupWithImage(popupImageSelector);
+imagePopup.setEventListeners();
+
 
 function addCard(galleryContainer, card) {
   galleryContainer.prepend(card);
 }
-
-// Функция открытия попапов
-// function openPopup (popup) {
-//   popup.classList.add('popup_opened');
-//   document.addEventListener('keydown', handleClosePopupEsc);
-// }
-
-// // Функция закрытия попапов
-// function closePopup (popup) {
-//   popup.classList.remove('popup_opened');
-//   document.removeEventListener('keydown', handleClosePopupEsc);
-// }
 
 // Функция изменения имени и описания пользователя
 function editUserInfo () {
@@ -89,25 +76,6 @@ function handleUserInfoFormSubmit (evt) {
   closePopup(popupUserInfo);
 };
 
-// Функция закрытия попапа при клике на оверлей
-// function handleClosePopupOverlay(evt) {
-//   if (evt.target === evt.currentTarget){
-//     closePopup(evt.target);
-//   }
-// }
-
-// Функция закрытия попапа при нажатии esc
-// function handleClosePopupEsc(evt) {
-//   if (evt.key === 'Escape') {
-//     const popupOpened = document.querySelector('.popup_opened');
-//     closePopup(popupOpened);
-//   }
-// }
-
-const popupProfile = new Popup(popupProfileSelector);
-popupProfile.setEventListeners();
-// console.log(popupProfile);
-
 
 galleryItems.forEach((item) => {
   addCard(galleryContainer, createNewCard(item));
@@ -121,7 +89,7 @@ profileEditButton.addEventListener('click', () => {
   formUserInfoValidated.resetValidation();
   popupInputNickname.value = profileUserNickname.textContent;
   popupInputDescription.value = profileUserDescription.textContent;
-  popupProfile.openPopup();
+  popupProfile.open();
   // openPopup(popupUserInfo);
 });
 
@@ -140,20 +108,6 @@ popupAddImage.addEventListener('submit', (evt) => {
   // closePopup(popupAddImage);
   evt.target.reset();
 });
-
-
-// Закрытие попапов при клике по иконке
-// popupCloseButtons.forEach ((element) => {
-//   const closestPopup = element.closest('.popup');
-//   element.addEventListener('click', () => closePopup(closestPopup));
-// });
-
-// Вешаем слушатели на все попапы для закрытия по оверлей
-// popupsList.forEach ((element) => {
-//   element.addEventListener('click', (evt) => {
-//     handleClosePopupOverlay(evt);
-//   })
-// })
 
 formUserInfoValidated.enableValidation();
 formAddImageValidated.enableValidation();
