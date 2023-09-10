@@ -4,6 +4,10 @@ import Card from "./scripts/components/Card.js"
 import PopupWithImage from "./scripts/components/PopupWithImage.js";
 import Section from "./scripts/components/Section.js";
 import UserInfo from "./scripts/components/UserInfo.js";
+import PopupWithForm from "./scripts/components/PopupWithForm.js";
+
+const popupProfileSelector = '.popup_user-info';
+
 
 const configUserInfo = {
   profileNicknameSelector: '.profile__user-nickname',
@@ -13,41 +17,19 @@ const configUserInfo = {
 const userInfo = new UserInfo(configUserInfo);
 console.log(userInfo);
 
-// Данные, необходимые для оперирования в следующих блоках
-const profileUserNickname = document.querySelector('.profile__user-nickname');
-const profileUserDescription = document.querySelector('.profile__user-description');
-
-const popupsList = document.querySelectorAll('.popup');
-
-// Элементы попапа с информацией о пользователе
-const popupUserInfo = document.querySelector('.popup_user-info');
-const popupInputNickname = popupUserInfo.querySelector('.popup__form-field_input_nickname');
-const popupInputDescription = popupUserInfo.querySelector('.popup__form-field_input_description');
 const userInfoEditForm = document.querySelector('.popup__edit-form_user');
-
-// Элементы попапа с информацией о новой карточке
-const popupAddImage = document.querySelector('.popup_add-image');
-const popupInputTitle = popupAddImage.querySelector('.popup__form-field_input_title');
-const popupInputLink = popupAddImage.querySelector('.popup__form-field_input_link');
 const addImageEditForm = document.querySelector('.popup__edit-form_image');
-
-// Элементы попапа для картинки
-const popupImage = document.querySelector('.image-popup');
-const popupImg = popupImage.querySelector('.popup__image');
-const popupImageCaption = popupImage.querySelector('.popup__caption');
 
 // Кнопки
 const profileEditButton = document.querySelector('.profile__edit-btn');
 const profileAddButton = document.querySelector('.profile__add-btn');
-const popupCloseButtons = document.querySelectorAll('.popup__close-btn');
 
 // Элемент-контейнер для карточек и элемент-шаблон, с помощью которого карточки добавляем
-const galleryContainer = document.querySelector('.gallery__list');
 const cardTemplateSelector = '#gallery-item';
 
-const popupProfileSelector = '.popup_user-info';
-
 const popupImageSelector = '.image-popup';
+
+const popupAddImageSelector = '.popup_add-image';
 
 const galleryItemsSelector = '.gallery__list';
 
@@ -74,45 +56,35 @@ const section = new Section({
 
 section.addCardFromInitialArray();
 
-// Функция изменения имени и описания пользователя
-function editUserInfo () {
-  profileUserNickname.textContent = popupInputNickname.value;
-  profileUserDescription.textContent = popupInputDescription.value;
-};
+// Открытие попапа для добавления карточки при клике по иконке
+profileAddButton.addEventListener('click', () => {
+  addImageEditForm.reset();
+  formAddImageValidated.resetValidation();
+  popupAddImage.open();
+});
 
-// Отмена отправки формы на сервер, обновление данных пользователя и закрытие попапа
-function handleUserInfoFormSubmit (evt) {
+const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
   evt.preventDefault();
-  editUserInfo();
-  closePopup(popupUserInfo);
-};
+  userInfo.setUserInfo(popupProfile.getInputValues());
+  popupProfile.close();
+  console.log(popupProfile.getInputValues());
+});
 
-// Сохранение информации о пользователе при сабмите формы
-userInfoEditForm.addEventListener('submit', handleUserInfoFormSubmit);
+popupProfile.setEventListeners();
+
+const popupAddImage = new PopupWithForm(popupAddImageSelector, (evt) => {
+  evt.preventDefault();
+  section.addItem(section.renderer(popupAddImage.getInputValues()));
+  popupAddImage.close();
+});
+
+popupAddImage.setEventListeners();
 
 // Открытие попапа с инфой о пользователе при клике по иконке + автозаполенение
 profileEditButton.addEventListener('click', () => {
   formUserInfoValidated.resetValidation();
-  popupInputNickname.value = profileUserNickname.textContent;
-  popupInputDescription.value = profileUserDescription.textContent;
   popupProfile.open();
-  // openPopup(popupUserInfo);
-});
-
-// Открытие попапа для добавления карточки при клике по иконке
-profileAddButton.addEventListener('click', () => {
-  // openPopup(popupAddImage);
-  addImageEditForm.reset();
-  formAddImageValidated.resetValidation();
-});
-
-// Добавление новой карточки при сабмите формы
-popupAddImage.addEventListener('submit', (evt) => {
-  evt.preventDefault();
-  const galleryItemNew = {name: popupInputTitle.value, link: popupInputLink.value};
-  addCard(galleryContainer, createNewCard(galleryItemNew));
-  // closePopup(popupAddImage);
-  evt.target.reset();
+  popupProfile.setInputValues(userInfo.getUserInfo());
 });
 
 formUserInfoValidated.enableValidation();
