@@ -3,6 +3,15 @@ import FormValidator from "./scripts/components/FormValidator.js"
 import Card from "./scripts/components/Card.js"
 import PopupWithImage from "./scripts/components/PopupWithImage.js";
 import Section from "./scripts/components/Section.js";
+import UserInfo from "./scripts/components/UserInfo.js";
+
+const configUserInfo = {
+  profileNicknameSelector: '.profile__user-nickname',
+  profileDescriptionSelector: '.profile__user-description',
+}
+
+const userInfo = new UserInfo(configUserInfo);
+console.log(userInfo);
 
 // Данные, необходимые для оперирования в следующих блоках
 const profileUserNickname = document.querySelector('.profile__user-nickname');
