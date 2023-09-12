@@ -1,3 +1,5 @@
+// разместил файл index.js не в директории pages, а в src для корректной работы вебпака
+
 import {
   galleryItems,
   popupProfileSelector,
@@ -11,13 +13,13 @@ import {
   userInfoEditForm,
   addImageEditForm,
   configUserInfo
-} from './scripts/utils/constants.js'
-import FormValidator from "./scripts/components/FormValidator.js"
-import Card from "./scripts/components/Card.js"
-import PopupWithImage from "./scripts/components/PopupWithImage.js";
-import Section from "./scripts/components/Section.js";
-import UserInfo from "./scripts/components/UserInfo.js";
-import PopupWithForm from "./scripts/components/PopupWithForm.js";
+} from '../scripts/utils/constants.js'
+import FormValidator from "../scripts/components/FormValidator.js"
+import Card from "../scripts/components/Card.js"
+import PopupWithImage from "../scripts/components/PopupWithImage.js";
+import Section from "../scripts/components/Section.js";
+import UserInfo from "../scripts/components/UserInfo.js";
+import PopupWithForm from "../scripts/components/PopupWithForm.js";
 
 const userInfo = new UserInfo(configUserInfo);
 
