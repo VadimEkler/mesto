@@ -1,5 +1,5 @@
 // разместил файл index.js не в директории pages, а в src для корректной работы вебпака
-
+import './index.css';
 import {
   galleryItems,
   popupProfileSelector,
