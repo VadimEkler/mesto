@@ -1,4 +1,3 @@
-// разместил файл index.js не в директории pages, а в src для корректной работы вебпака
 import './index.css';
 import {
   galleryItems,
@@ -13,13 +12,13 @@ import {
   userInfoEditForm,
   addImageEditForm,
   configUserInfo
-} from '../scripts/utils/constants.js'
-import FormValidator from "../scripts/components/FormValidator.js"
-import Card from "../scripts/components/Card.js"
-import PopupWithImage from "../scripts/components/PopupWithImage.js";
-import Section from "../scripts/components/Section.js";
-import UserInfo from "../scripts/components/UserInfo.js";
-import PopupWithForm from "../scripts/components/PopupWithForm.js";
+} from '../utils/constants.js'
+import FormValidator from "../components/FormValidator.js"
+import Card from "../components/Card.js"
+import PopupWithImage from "../components/PopupWithImage.js";
+import Section from "../components/Section.js";
+import UserInfo from "../components/UserInfo.js";
+import PopupWithForm from "../components/PopupWithForm.js";
 
 const userInfo = new UserInfo(configUserInfo);
 
@@ -33,15 +32,13 @@ const section = new Section({
   }
 }, galleryItemsSelector)
 
-const popupProfile = new PopupWithForm(popupProfileSelector, (evt) => {
-  evt.preventDefault();
-  userInfo.setUserInfo(popupProfile.getInputValues());
+const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
+  userInfo.setUserInfo(data);
   popupProfile.close();
 });
 
-const popupAddImage = new PopupWithForm(popupAddImageSelector, (evt) => {
-  evt.preventDefault();
-  section.addItem(section.renderer(popupAddImage.getInputValues()));
+const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
+  section.addItem(data);
   popupAddImage.close();
 });
 
