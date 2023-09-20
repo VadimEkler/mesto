@@ -1,4 +1,4 @@
-import './index.css';
+// import './index.css';
 import {
   galleryItems,
   popupProfileSelector,
@@ -11,6 +11,7 @@ import {
   validationConfig,
   userInfoEditForm,
   addImageEditForm,
+  newAvatarEditForm,
   configUserInfo
 } from '../utils/constants.js'
 import FormValidator from "../components/FormValidator.js"
@@ -44,6 +45,7 @@ const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
 
 const formUserInfoValidated = new FormValidator(validationConfig, userInfoEditForm);
 const formAddImageValidated = new FormValidator(validationConfig, addImageEditForm);
+const formNewAvatarValidated = new FormValidator(validationConfig, newAvatarEditForm);
 
 profileEditButton.addEventListener('click', () => {
   formUserInfoValidated.resetValidation();
@@ -64,3 +66,6 @@ popupAddImage.setEventListeners();
 
 formUserInfoValidated.enableValidation();
 formAddImageValidated.enableValidation();
+formNewAvatarValidated.enableValidation();
+
+

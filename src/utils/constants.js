@@ -49,6 +49,7 @@ const validationConfig = {
 // Константы форм для валидации
 const userInfoEditForm = document.querySelector('.popup__edit-form_user');
 const addImageEditForm = document.querySelector('.popup__edit-form_image');
+const newAvatarEditForm = document.querySelector('.popup__edit-form_avatar');
 
 // Объект с информацией об объекте пользователя
 const configUserInfo = {
@@ -68,5 +69,6 @@ export {
   validationConfig,
   userInfoEditForm,
   addImageEditForm,
+  newAvatarEditForm,
   configUserInfo
 }
