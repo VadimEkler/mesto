@@ -7,12 +7,12 @@ export default class Section {
 
 
   addItem(data) {
-    this._container.prepend(this._renderer(data));
+    this._container.prepend(data);
   }
 
   addCardFromInitialArray() {
     this._initialCardArray.forEach((item) => {
-      this.addItem(item);
+      this._renderer(item);
     })
   }
 }

@@ -5,9 +5,13 @@ import {
   cardTemplateSelector,
   popupImageSelector,
   popupAddImageSelector,
+  popupAvatarSelector,
+  popupDeleteSelector,
   galleryItemsSelector,
+  popupImageAvatar,
   profileEditButton,
   profileAddButton,
+  profileAvatarEditButton,
   validationConfig,
   userInfoEditForm,
   addImageEditForm,
@@ -20,16 +24,26 @@ import PopupWithImage from "../components/PopupWithImage.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupDelete from '../components/PopupDelete.js';
 
 const userInfo = new UserInfo(configUserInfo);
 
 const imagePopup = new PopupWithImage(popupImageSelector);
 
+const popupDelete = new PopupDelete(popupDeleteSelector, (item) => {
+  item.deleteCard();
+  popupDelete.close();
+});
+
+function createNewCard(element) {
+  const card = new Card(element, cardTemplateSelector, imagePopup.open, popupDelete.open);
+  return card.createCard();
+}
+
 const section = new Section({
   items: galleryItems,
   renderer: (item) => {
-    const card = new Card(item, cardTemplateSelector, imagePopup.open);
-    return card.createCard();
+    section.addItem(createNewCard(item));
   }
 }, galleryItemsSelector)
 
@@ -41,6 +55,11 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
   section.addItem(data);
   popupAddImage.close();
+});
+
+const popupAvatarEdit = new PopupWithForm(popupAvatarSelector, (data) => {
+  popupImageAvatar.src = data.avatar;
+  popupAvatarEdit.close();
 });
 
 const formUserInfoValidated = new FormValidator(validationConfig, userInfoEditForm);
@@ -63,9 +82,14 @@ section.addCardFromInitialArray();
 imagePopup.setEventListeners();
 popupProfile.setEventListeners();
 popupAddImage.setEventListeners();
+popupAvatarEdit.setEventListeners();
+popupDelete.setEventListeners();
 
 formUserInfoValidated.enableValidation();
 formAddImageValidated.enableValidation();
 formNewAvatarValidated.enableValidation();
 
-
+profileAvatarEditButton.addEventListener('click', () => {
+  formNewAvatarValidated.resetValidation();
+  popupAvatarEdit.open();
+});
