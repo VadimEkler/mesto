@@ -1,6 +1,5 @@
 // import './index.css';
 import {
-  galleryItems,
   popupProfileSelector,
   cardTemplateSelector,
   popupImageSelector,
@@ -49,11 +48,8 @@ function createNewCard(item) {
   return card.createCard();
 }
 
-const section = new Section({
-  items: galleryItems,
-  renderer: (item) => {
-    section.addItem(createNewCard(item));
-  }
+const section = new Section((item) => {
+  section.addItem(createNewCard(item))
 }, galleryItemsSelector)
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
@@ -91,8 +87,6 @@ profileAvatarEditButton.addEventListener('click', () => {
   popupAvatarEdit.open();
 });
 
-section.addCardFromInitialArray();
-
 imagePopup.setEventListeners();
 popupProfile.setEventListeners();
 popupAddImage.setEventListeners();
@@ -105,11 +99,15 @@ formNewAvatarValidated.enableValidation();
 
 Promise.all([api.getInfo(), api.getCards()])
   .then(([dataUser, dataCard]) => {
-    console.log(dataUser)
+    console.log(dataCard)
+    dataCard.forEach(element => {
+      element.myId = dataUser._id;
+    })
     console.log(dataCard)
     userInfo.setUserInfo({
       nickname: dataUser.name,
       description: dataUser.about,
       avatar: dataUser.avatar,
     })
+    section.addCardFromInitialArray(dataCard);
   })
