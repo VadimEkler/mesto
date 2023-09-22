@@ -1,0 +1,25 @@
+.profile__portrait-btn {
+  all: unset;
+  height: 120px;
+  width: 120px;
+  border-radius: 50%;
+}
+
+.profile__portrait-btn::before {
+  position: absolute;
+  z-index: 1;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(../../../Images/icons/profile__edit-button_2.svg);
+  background-size: 26px 26px;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0;
+  }
+
+@media (hover: hover) and (pointer: fine) {
+  .profile__portrait-btn::before {
+    opacity: 1;
+    transition: opacity 0.5s ease-in;
+    cursor: pointer;
+  }
+}

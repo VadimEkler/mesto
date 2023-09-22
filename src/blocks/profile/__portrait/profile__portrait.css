@@ -1,5 +1,7 @@
 .profile__portrait {
-  height: 120px;
-  width: 120px;
-  border-radius: 50%;
+  height: inherit;
+  width: inherit;
+  border-radius: inherit;
+  z-index: 0;
+  position: relative;
 }
