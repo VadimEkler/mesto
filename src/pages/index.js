@@ -1,4 +1,4 @@
-import './index.css';
+// import './index.css';
 import {
   galleryItems,
   popupProfileSelector,
@@ -24,11 +24,15 @@ const userInfo = new UserInfo(configUserInfo);
 
 const imagePopup = new PopupWithImage(popupImageSelector);
 
+function createNewCard(item) {
+  const card = new Card(item, cardTemplateSelector, imagePopup.open);
+  return card.createCard();
+}
+
 const section = new Section({
   items: galleryItems,
   renderer: (item) => {
-    const card = new Card(item, cardTemplateSelector, imagePopup.open);
-    return card.createCard();
+    section.addItem(createNewCard(item));
   }
 }, galleryItemsSelector)
 
@@ -38,7 +42,7 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 });
 
 const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
-  section.addItem(data);
+  section.addItem(createNewCard(data));
   popupAddImage.close();
 });
 

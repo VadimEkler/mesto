@@ -6,13 +6,13 @@ export default class Section {
   }
 
 
-  addItem(data) {
-    this._container.prepend(this._renderer(data));
+  addItem(itemDOM) {
+    this._container.prepend(itemDOM);
   }
 
   addCardFromInitialArray() {
     this._initialCardArray.forEach((item) => {
-      this.addItem(item);
+      this._renderer(item);
     })
   }
 }
