@@ -31,7 +31,7 @@ const popupProfileSelector = '.popup_user-info';
 const cardTemplateSelector = '#gallery-item';
 const popupImageSelector = '.image-popup';
 const popupAddImageSelector = '.popup_add-image';
-const popupAvatarSelector = '.popup_avatar';
+const popupAvatarSelector = '.popup_edit-avatar';
 const popupDeleteSelector = '.popup_delete';
 const galleryItemsSelector = '.gallery__list';
 
@@ -41,7 +41,7 @@ const popupImageAvatar = document.querySelector('.profile__portrait');
 // Кнопки
 const profileEditButton = document.querySelector('.profile__edit-btn');
 const profileAddButton = document.querySelector('.profile__add-btn');
-const profileAvatarEditButton = document.querySelector('.profile__portrait-btn');
+const profileAvatarEditButton = document.querySelector('.profile__portrait-edit-btn');
 
 // Объект конфига для валидации
 const validationConfig = {
@@ -60,6 +60,7 @@ const newAvatarEditForm = document.querySelector('.popup__edit-form_avatar');
 const configUserInfo = {
   profileNicknameSelector: '.profile__user-nickname',
   profileDescriptionSelector: '.profile__user-description',
+  profileAvatarSelector: '.profile__portrait',
 }
 
 export {
