@@ -25,10 +25,19 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupDelete from '../components/PopupDelete.js';
+import Api from '../components/Api.js';
 
 const userInfo = new UserInfo(configUserInfo);
 
 const imagePopup = new PopupWithImage(popupImageSelector);
+
+const api = new Api({
+  baseUrl: 'https://mesto.nomoreparties.co/v1/cohort-75',
+  headers: {
+    authorization: '2b612430-bf53-4842-8fac-4e392ff44657',
+    'Content-Type': 'application/json'
+  }
+})
 
 const popupDelete = new PopupDelete(popupDeleteSelector, (item) => {
   item.deleteCard();
