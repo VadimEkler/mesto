@@ -53,6 +53,17 @@ const section = new Section((item) => {
 }, galleryItemsSelector)
 
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
+  api.setUserInfo(data)
+    .then(res => {
+      console.log(res)
+      userInfo.setUserInfo({
+        nickname: res.name,
+        description: res.about,
+        avatar: res.avatar,
+      })
+    })
+    .catch((error => console.error(`Ошибка при редактировании профиля ${error}`)))
+    .finally();
   userInfo.setUserInfo(data);
   popupProfile.close();
 });
@@ -63,7 +74,16 @@ const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
 });
 
 const popupAvatarEdit = new PopupWithForm(popupAvatarSelector, (data) => {
-  popupImageAvatar.src = data.avatar;
+  api.setNewAvatar(data)
+    .then(res => {
+      userInfo.setUserInfo({
+        nickname: res.name,
+        description: res.about,
+        avatar: res.avatar,
+      })
+    })
+    .catch((error => console.error(`Ошибка при обновлении автара профиля ${error}`)))
+    .finally();
   popupAvatarEdit.close();
 });
 
@@ -99,11 +119,9 @@ formNewAvatarValidated.enableValidation();
 
 Promise.all([api.getInfo(), api.getCards()])
   .then(([dataUser, dataCard]) => {
-    console.log(dataCard)
     dataCard.forEach(element => {
       element.myId = dataUser._id;
     })
-    console.log(dataCard)
     userInfo.setUserInfo({
       nickname: dataUser.name,
       description: dataUser.about,
@@ -111,3 +129,4 @@ Promise.all([api.getInfo(), api.getCards()])
     })
     section.addCardFromInitialArray(dataCard);
   })
+  .catch(error => console.error(`Ошибка при загрузку начальных данных страницы ${error}`));

@@ -3,6 +3,8 @@ export default class Card {
     this._cardData = data;
     this._name = data.name;
     this._link = data.link;
+    this._myId = data.myId;
+    this._ownerId = data.owner._id;
     this._selectorTemplate = selectorTemplate;
     this._handleImageClick = handleImageClick;
     this._handleDeletePopup = handleDeletePopup;
@@ -25,6 +27,12 @@ export default class Card {
     this._handleImageClick(this._cardData);
   }
 
+  _checkDeleteIconVisibility() {
+    this._myId === this._ownerId ?
+    this._cardDeleteButton.style.display = 'block' :
+    this._cardDeleteButton.style.display = 'none';
+  }
+
   _addEventListeners() {
     this._cardLikeButton.addEventListener('click', this._handleLike);
     this._cardDeleteButton.addEventListener('click', this._handleDelete);
@@ -41,6 +49,7 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._cardTitle.textContent = this._name;
 
+    this._checkDeleteIconVisibility()
     this._addEventListeners();
 
     return this._cloneElement;

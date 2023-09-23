@@ -27,6 +27,29 @@ export default class Api {
       .then(res => res.ok ? res.json() : Promise.reject)
   }
 
+  setUserInfo(data) {
+    return fetch(`${this._url}/users/me`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.nickname,
+        about: data.description,
+      })
+    })
+      .then(this._checkResponse)
+  }
+
+  setNewAvatar(data) {
+    return fetch(`${this._url}//users/me/avatar`, {
+      method: 'PATCH',
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: data.avatar,
+      })
+    })
+      .then(this._checkResponse)
+  }
+
 
 }
 
