@@ -40,7 +40,7 @@ export default class Api {
   }
 
   setNewAvatar(data) {
-    return fetch(`${this._url}//users/me/avatar`, {
+    return fetch(`${this._url}/users/me/avatar`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
@@ -50,6 +50,17 @@ export default class Api {
       .then(this._checkResponse)
   }
 
+  addCard(data) {
+    return fetch(`${this._url}/cards `, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      })
+    })
+      .then(this._checkResponse)
+  }
 
 }
 

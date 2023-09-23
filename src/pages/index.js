@@ -55,7 +55,6 @@ const section = new Section((item) => {
 const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
   api.setUserInfo(data)
     .then(res => {
-      console.log(res)
       userInfo.setUserInfo({
         nickname: res.name,
         description: res.about,
@@ -69,8 +68,14 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 });
 
 const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
-  section.addItem(createNewCard(data));
-  popupAddImage.close();
+  Promise.all([api.getInfo(), api.addCard(data)])
+    .then(([dataUser, dataCard]) => {
+      dataCard.myId = dataUser._id;
+      section.addItem(createNewCard(dataCard))
+      popupAddImage.close()
+    })
+    .catch((error => console.error(`Ошибка при добавлении карточки ${error}`)))
+    .finally()
 });
 
 const popupAvatarEdit = new PopupWithForm(popupAvatarSelector, (data) => {
