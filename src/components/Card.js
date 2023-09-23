@@ -25,7 +25,7 @@ export default class Card {
   }
 
   _handleDelete = () => {
-    this._handleDeletePopup(this);
+    this._handleDeletePopup({ card: this, cardId: this._cardId });
   }
 
   _handleCardClick = () => {

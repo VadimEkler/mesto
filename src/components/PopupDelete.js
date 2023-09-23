@@ -10,12 +10,14 @@ export default class PopupDelete extends Popup {
     super.setEventListeners();
     this._form.addEventListener('submit', (evt) => {
       evt.preventDefault();
-      this._submitCallback(this._item);
+      this._submitCallback({card: this._card, _cardId: this._cardId});
+      console.log(this._card, this._cardId)
     })
   }
 
-  open = (item) => {
+  open = ({ card, cardId }) => {
     super.open();
-    this._item = item;
+    this._card = card;
+    this._cardId = cardId;
   }
 }

@@ -38,9 +38,14 @@ const api = new Api({
   }
 });
 
-const popupDelete = new PopupDelete(popupDeleteSelector, (item) => {
-  item.deleteCard();
-  popupDelete.close();
+const popupDelete = new PopupDelete(popupDeleteSelector, ({ card, cardId }) => {
+  api.removeCard(cardId)
+    .then(() => {
+      card.deleteCard()
+      popupDelete.close()
+    })
+    .catch(error => console.error(`Ошибка при удалении карточки ${error}`))
+    .finally()
 })
 
 function createNewCard(item) {
