@@ -44,7 +44,25 @@ const popupDelete = new PopupDelete(popupDeleteSelector, (item) => {
 })
 
 function createNewCard(item) {
-  const card = new Card(item, cardTemplateSelector, imagePopup.open, popupDelete.open);
+  const card = new Card(item,
+    cardTemplateSelector,
+    imagePopup.open,
+    popupDelete.open,
+    (cardLikeButton, cardId) => {
+      if (cardLikeButton.classList.contains('gallery__like-button_active')) {
+        api.removeLike(cardId)
+          .then(res => {
+            card.toggleLike(res.likes)
+          })
+          .catch(error => console.error(`Не удалось снять лайк. Ошибка:${error}`))
+      } else {
+        api.addLike(cardId)
+          .then(res => {
+            card.toggleLike(res.likes)
+          })
+          .catch(error => console.error(`Не удалось поставить лайк. Ошибка:${error}`))
+      }
+  });
   return card.createCard();
 }
 
@@ -134,4 +152,4 @@ Promise.all([api.getInfo(), api.getCards()])
     })
     section.addCardFromInitialArray(dataCard);
   })
-  .catch(error => console.error(`Ошибка при загрузку начальных данных страницы ${error}`));
+  .catch(error => console.error(`Ошибка при загрузке начальных данных страницы ${error}`));

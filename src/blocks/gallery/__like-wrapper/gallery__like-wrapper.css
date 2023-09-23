@@ -1,0 +1,11 @@
+.gallery__like-wrapper {
+  all: unset;
+
+  margin-right: 22px;
+
+  display: flex;
+  gap: 3px;
+  flex-direction: column;
+
+  text-align: center;
+}

@@ -1,8 +1,6 @@
 .gallery__like-button {
   all: unset;
 
-  margin: 0 22px 0 0;
-
   background-image: url(../../../Images/icons/gallery__like-button.svg);
   background-repeat: no-repeat;
   background-size: contain;
