@@ -45,7 +45,6 @@ const popupDelete = new PopupDelete(popupDeleteSelector, ({ card, cardId }) => {
       popupDelete.close()
     })
     .catch(error => console.error(`Ошибка при удалении карточки ${error}`))
-    .finally()
 })
 
 function createNewCard(item) {
@@ -83,11 +82,11 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
         description: res.about,
         avatar: res.avatar,
       })
+      popupProfile.close();
     })
     .catch((error => console.error(`Ошибка при редактировании профиля ${error}`)))
-    .finally();
+    .finally(() => popupProfile.setupInitialInputText());
   userInfo.setUserInfo(data);
-  popupProfile.close();
 });
 
 const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
@@ -98,7 +97,7 @@ const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
       popupAddImage.close()
     })
     .catch((error => console.error(`Ошибка при добавлении карточки ${error}`)))
-    .finally()
+    .finally(() => popupAddImage.setupInitialInputText())
 });
 
 const popupAvatarEdit = new PopupWithForm(popupAvatarSelector, (data) => {
@@ -109,10 +108,10 @@ const popupAvatarEdit = new PopupWithForm(popupAvatarSelector, (data) => {
         description: res.about,
         avatar: res.avatar,
       })
+      popupAvatarEdit.close();
     })
     .catch((error => console.error(`Ошибка при обновлении автара профиля ${error}`)))
-    .finally();
-  popupAvatarEdit.close();
+    .finally(() => popupAvatarEdit.setupInitialInputText());
 });
 
 const formUserInfoValidated = new FormValidator(validationConfig, userInfoEditForm);
