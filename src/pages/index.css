@@ -10,6 +10,7 @@
 @import url(../blocks/profile/__info/profile__info.css);
 @import url(../blocks/profile/__user-nickname/profile__user-nickname.css);
 @import url(../blocks/profile/__edit-btn/profile__edit-btn.css);
+@import url(../blocks/profile/__portrait-edit-btn/profile__portrait-edit-btn.css);
 @import url(../blocks/profile/__user-description/profile__user-description.css);
 @import url(../blocks/profile/__add-btn/profile__add-btn.css);
 @import url(../blocks/gallery/gallery.css);

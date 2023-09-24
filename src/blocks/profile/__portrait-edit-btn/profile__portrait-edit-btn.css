@@ -3,23 +3,33 @@
   height: 120px;
   width: 120px;
   border-radius: 50%;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  position: relative;
 }
 
-.profile__portrait-btn::before {
-  position: absolute;
-  z-index: 1;
-  background-color: rgba(0, 0, 0, 0.8);
-  background-image: url(../../../Images/icons/profile__edit-button_2.svg);
+.profile__portrait-edit-btn::before {
+  content:'';
+  background-image: url(../../../Images/icons/profile__edit-button-2.svg);
   background-size: 26px 26px;
   background-repeat: no-repeat;
   background-position: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
   opacity: 0;
-  }
-
-@media (hover: hover) and (pointer: fine) {
-  .profile__portrait-btn::before {
-    opacity: 1;
-    transition: opacity 0.5s ease-in;
-    cursor: pointer;
-  }
+  height: 100%;
+  width: 100%;
 }
+
+.profile__portrait-edit-btn:hover::before {
+  background-color: rgb(0, 0, 0);
+  opacity: 0.8;
+  transition: opacity .3s ease-in;
+}
+
