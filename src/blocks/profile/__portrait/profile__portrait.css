@@ -2,4 +2,5 @@
   height: inherit;
   width: inherit;
   border-radius: inherit;
+  box-sizing: content-box;
 }
