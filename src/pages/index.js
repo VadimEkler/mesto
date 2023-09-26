@@ -154,7 +154,7 @@ Promise.all([api.getInfo(), api.getCards()])
       avatar: dataUser.avatar,
     })
     userId = dataUser._id;
-    section.addCardFromInitialArray(dataCard);
+    section.addCardFromInitialArray(dataCard.reverse());
   })
   .catch(error => console.error(`Ошибка при загрузке начальных данных страницы ${error}`));
 
