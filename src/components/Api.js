@@ -24,7 +24,7 @@ export default class Api {
         authorization: this._authorization
       }
     })
-      .then(res => res.ok ? res.json() : Promise.reject)
+      .then(this._checkResponse)
   }
 
   setUserInfo(data) {

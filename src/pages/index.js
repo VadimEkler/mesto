@@ -26,6 +26,8 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupDelete from '../components/PopupDelete.js';
 import Api from '../components/Api.js';
 
+let userId;
+
 const userInfo = new UserInfo(configUserInfo);
 
 const imagePopup = new PopupWithImage(popupImageSelector);
@@ -49,6 +51,7 @@ const popupDelete = new PopupDelete(popupDeleteSelector, ({ card, cardId }) => {
 
 function createNewCard(item) {
   const card = new Card(item,
+    userId,
     cardTemplateSelector,
     imagePopup.open,
     popupDelete.open,
@@ -90,9 +93,8 @@ const popupProfile = new PopupWithForm(popupProfileSelector, (data) => {
 });
 
 const popupAddImage = new PopupWithForm(popupAddImageSelector, (data) => {
-  Promise.all([api.getInfo(), api.addCard(data)])
-    .then(([dataUser, dataCard]) => {
-      dataCard.myId = dataUser._id;
+  api.addCard(data)
+    .then((dataCard) => {
       section.addItem(createNewCard(dataCard))
       popupAddImage.close()
     })
@@ -146,14 +148,14 @@ formNewAvatarValidated.enableValidation();
 
 Promise.all([api.getInfo(), api.getCards()])
   .then(([dataUser, dataCard]) => {
-    dataCard.forEach(element => {
-      element.myId = dataUser._id;
-    })
     userInfo.setUserInfo({
       nickname: dataUser.name,
       description: dataUser.about,
       avatar: dataUser.avatar,
     })
+    userId = dataUser._id;
     section.addCardFromInitialArray(dataCard);
   })
   .catch(error => console.error(`Ошибка при загрузке начальных данных страницы ${error}`));
+
+
